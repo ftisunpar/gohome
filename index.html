@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Go Home Estimator</title>
+		<meta charset="utf-8">
+		<Style type="text/css">
+		</style>
+		<link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
+	</head>
+	<body>
+		<div class="jumbotron text-center">
+			<h1>Go Home Estimator</h1>
+			<p>Menampilkan waktu yang dibutuhkan untuk menyetir pulang dari kantor</p>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="col-sm-12">
+						<div class="form-group">
+							<label class="control-label col-sm-2" for="work">Work:</label>
+								<div class="col-lg-10">
+									<input type="text" name="work" id="work" class="form-control">
+								</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-2" for="home">Home:</label>
+							<div class="col-lg-10">
+								<input type="text" name="home" id="home" class="form-control">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-offset-2 col-sm-10">
+								<button class="btn btn-default" id="submit">Submit</button>
+							</div>
+						</div>
+                        <div id="textContainer" style="display:none;">
+                            <div class ="estimasi">
+    							<label>Jalan pulang memerlukan:</label>
+    							<h2><span id="time">37 menit</span> / <span id="distance">12 KM</span></h2> <!-- $(".estimasi h2").html("37 menit / 12 KM"); -->
+    						</div>
+    						<div class="rute">
+    							<p>Melalui: <span id="routes">Jl. Ciumbuleit, Jl. Cihampelas, Jl. Wastukencana, Jl. L. L. RE. Martadinata, Jl. lengkong Besar, Jl. Moch Ramdan, Jl. BKR, Jl. Nasional III, Jl. Waas, Jl. Batununggal Indah I</span></p>
+    						</div>
+    						<div class="updated">
+    							<p>Terakhir Update <span id="last_update">16:55</span></p>
+    						</div>
+                        </div>
+					</div>
+				</div>
+				<div class="col-sm-6"> <!-- Chart estimasi waktu yang dibutuhkan -->
+					<div class="panel-body">
+						<div>
+							<canvas id="myChart"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+        <script type="text/javascript" src="scripts/jquery-3.1.1.min.js"></script>
+        <script type="text/javascript" src="Chartjs/Chart.js"></script>
+        <script type="text/javascript" src="scripts/jquery.geocomplete.min.js"></script>
+        <script type="text/javascript" src="scripts/main.js"></script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyCc-1NjsuQGuQBO9AZxvZJ5dBMEUOKcQMs&callback=initMap"></script>
+	</body>
+</html>
