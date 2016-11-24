@@ -100,6 +100,20 @@ function generateChart(newDistance, newDuration, newLabel) {
     });
 }
 
+function formatArrayToString(arr) {
+    var res = "";
+
+    for (var i = 0; i < arr.length; i++) {
+        if (i==0) {
+            res += arr[i];
+        } else {
+            res += ", "+arr[i];
+        }
+    }
+
+    return res;
+}
+
 $(document).ready(function(){
     var reloader = null;
 
@@ -137,29 +151,46 @@ $(document).ready(function(){
                         console.log(response);
                         var distance = 0;
                         var duration = 0;
-                        var routes = "";
+                        var routes = [];
                         var lastUpdate = (new Date()).toLocaleTimeString();
 
                         for (var i = 0; i < response.routes.length; i++) {
                             for (var j = 0; j < response.routes[i].legs.length; j++) {
                                 distance += response.routes[i].legs[j].distance.value;
                                 duration += response.routes[i].legs[j].duration.value;
-                            }
-                            if (routes=="") {
-                                routes += response.routes[i].summary;
-                            } else {
-                                routes += ", "+response.routes[i].summary;
+
+                                for (var k = 0; k < response.routes[i].legs[j].steps.length; k++) {
+                                    var roads = $("<div>"+response.routes[i].legs[j].steps[k].instructions+"<div>")
+                                        .find("b")
+                                        .filter(function(){
+                                            if (this.innerHTML.toLowerCase().startsWith("jl.") || this.innerHTML.toLowerCase().startsWith("jalan")) {
+                                                return true;
+                                            } else {
+                                                return false;
+                                            }
+                                        }).text(function(index,text){
+                                            if (routes.length==0 || (routes.length>0 && routes[routes.length-1]!=text)) {
+                                                routes.push(text);
+                                            }
+                                        });
+
+                                }
                             }
                         }
 
                         var distanceFormatted = (distance>=500)?((distance/1000).toFixed(2)+" km"):(distance+" m");
-                        var durationFormatted = parseInt(duration/60)+" menit";
+                        // var durationFormatted = parseInt(duration/60)+" menit";
+                        var durationFormatted;
+                        if (duration>=3600) {
+                            durationFormatted = parseInt(duration/3600)+" jam "+(parseInt(duration/60)%60)+" menit";
+                        } else {
+                            durationFormatted = parseInt(duration/60)+" menit";
+                        }
 
                         $("#distance").text(distanceFormatted);
                         $("#time").text(durationFormatted);
-                        $("#routes").text(routes);
+                        $("#routes").text(formatArrayToString(routes));
                         $("#last_update").text(lastUpdate);
-
                         generateChart(distance,parseInt(duration/60),lastUpdate);
 
                         $(".hiddenInit").attr("style","");
