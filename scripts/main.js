@@ -4,6 +4,7 @@ var chartDistance = [];
 var chartDuration = [];
 var chartLabel = [];
 var initialized = false;
+var refreshRate = 1000*60*5;
 
 function initMap() {
     service = new google.maps.DirectionsService;
@@ -118,7 +119,6 @@ $(document).ready(function(){
         if (!initialized) {
             alert("Can't contact google. Please check your internet connection.");
         } else {
-            $("#textContainer").attr("style","");
             chartDuration = [];
             chartDistance = [];
             chartLabel = [];
@@ -161,11 +161,13 @@ $(document).ready(function(){
                         $("#last_update").text(lastUpdate);
 
                         generateChart(distance,parseInt(duration/60),lastUpdate);
+
+                        $(".hiddenInit").attr("style","");
                     }
                 });
             };
             makeRequest();
-            reloader = setInterval(makeRequest,1000*60*5);
+            reloader = setInterval(makeRequest,refreshRate);
         }
     });
 });

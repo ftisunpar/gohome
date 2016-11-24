@@ -16,41 +16,47 @@
 			<div class="row">
 				<div class="col-sm-6">
 					<div class="col-sm-12">
-						<div class="form-group">
-							<label class="control-label col-sm-2" for="work">Work:</label>
-								<div class="col-lg-10">
-									<input type="text" name="work" id="work" class="form-control">
-								</div>
-						</div>
-						<div class="form-group">
-							<label class="control-label col-sm-2" for="home">Home:</label>
-							<div class="col-lg-10">
-								<input type="text" name="home" id="home" class="form-control">
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="col-sm-offset-2 col-sm-10">
-								<button class="btn btn-default" id="submit">Submit</button>
-							</div>
-						</div>
-                        <div id="textContainer" style="display:none;">
-                            <div class ="estimasi">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+    							<label class="control-label col-sm-2" for="work">Work:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="work" id="work" class="form-control">
+                                </div>
+    						</div>
+    						<div class="form-group">
+    							<label class="control-label col-sm-2" for="home">Home:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="home" id="home" class="form-control">
+                                </div>
+    						</div>
+    						<div class="form-group">
+    							<div class="col-sm-offset-2 col-sm-10">
+    								<button class="btn btn-primary" id="submit">Submit</button>
+    							</div>
+    						</div>
+                        </div>
+                        <div class="hiddenInit" style="display:none;">
+                            <p class ="estimasi">
     							<label>Jalan pulang memerlukan:</label>
-    							<h2><span id="time">37 menit</span> / <span id="distance">12 KM</span></h2> <!-- $(".estimasi h2").html("37 menit / 12 KM"); -->
-    						</div>
-    						<div class="rute">
-    							<p>Melalui: <span id="routes">Jl. Ciumbuleit, Jl. Cihampelas, Jl. Wastukencana, Jl. L. L. RE. Martadinata, Jl. lengkong Besar, Jl. Moch Ramdan, Jl. BKR, Jl. Nasional III, Jl. Waas, Jl. Batununggal Indah I</span></p>
-    						</div>
-    						<div class="updated">
-    							<p>Terakhir Update <span id="last_update">16:55</span></p>
-    						</div>
+    							<div class="h2" style="margin:0px 0px 20px 0px">
+                                    <span id="time">37 menit</span> / <span id="distance">12 KM</span>
+                                </div>
+    						</p>
+    						<p class="rute">
+                                <label>Melalui:</label>
+    							<span id="routes">Jl. Ciumbuleit, Jl. Cihampelas, Jl. Wastukencana, Jl. L. L. RE. Martadinata, Jl. lengkong Besar, Jl. Moch Ramdan, Jl. BKR, Jl. Nasional III, Jl. Waas, Jl. Batununggal Indah I</span>
+    						</p>
+    						<p class="updated">
+    							<label>Terakhir Update:</label>
+                                <span id="last_update">16:55</span>
+    						</p>
                         </div>
 					</div>
 				</div>
 				<div class="col-sm-6"> <!-- Chart estimasi waktu yang dibutuhkan -->
 					<div class="panel-body">
 						<div>
-							<canvas id="myChart"></canvas>
+							<canvas class="hiddenInit" style="display:none;" id="myChart" height="200px"></canvas>
 						</div>
 					</div>
 				</div>
