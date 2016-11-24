@@ -139,12 +139,16 @@ $(document).ready(function(){
             chartLabel = [];
             var work = $("#work").val();
             var home = $("#home").val();
-            var makeRequest = function(){
+            var makeRequest = function(dt){
                 service.route({
                     origin: work,
                     destination: home,
                     travelMode: 'DRIVING',
                     unitSystem: google.maps.UnitSystem.METRIC,
+                    drivingOptions: {
+                        departureTime: dt,
+                        trafficModel: 'bestguess'
+                    }
                 }, function(response, status) {
                     if (status !== 'OK') {
                         alert('Error was: ' + status);
@@ -153,12 +157,12 @@ $(document).ready(function(){
                         var distance = 0;
                         var duration = 0;
                         var routes = [];
-                        var lastUpdate = (new Date()).toLocaleTimeString();
+                        var lastUpdate = dt.toLocaleDateString()+" "+dt.toLocaleTimeString();
 
                         for (var i = 0; i < response.routes.length; i++) {
                             for (var j = 0; j < response.routes[i].legs.length; j++) {
                                 distance += response.routes[i].legs[j].distance.value;
-                                duration += response.routes[i].legs[j].duration.value;
+                                duration += response.routes[i].legs[j].duration_in_traffic.value;
 
                                 for (var k = 0; k < response.routes[i].legs[j].steps.length; k++) {
                                     var roads = $("<div>"+response.routes[i].legs[j].steps[k].instructions+"<div>")
@@ -198,8 +202,11 @@ $(document).ready(function(){
                     }
                 });
             };
-            makeRequest();
-            reloader = setInterval(makeRequest,refreshRate);
+            var dt = new Date();
+            makeRequest(dt);
+            reloader = setInterval(function(){
+                makeRequest(dt);
+            },refreshRate);
         }
     });
 });
