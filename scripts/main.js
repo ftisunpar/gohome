@@ -159,7 +159,7 @@ $(document).ready(function(){
                         var routes = [];
                         var lastUpdate = dt.toLocaleDateString()+" "+dt.toLocaleTimeString();
 
-                        for (var i = 0; i < response.routes.length; i++) {
+                        for (var i = 0; i < response.routes.length || i < 1; i++) { // prevent going through alternative routes
                             for (var j = 0; j < response.routes[i].legs.length; j++) {
                                 distance += response.routes[i].legs[j].distance.value;
                                 duration += response.routes[i].legs[j].duration_in_traffic.value;
