@@ -133,6 +133,7 @@ $(document).ready(function(){
         if (!initialized) {
             alert("Can't contact google. Please check your internet connection.");
         } else {
+            handleChange();
             chartDuration = [];
             chartDistance = [];
             chartLabel = [];
